@@ -1,10 +1,13 @@
+import fastify from 'fastify';
 async function bookRoutes (fastify: any, options: any, done: any) {
 
-    fastify.get('/', getBooksOpts); // controller method
+    fastify.get('/', (req: any, res: any) => {
+      res.send('Success');
+    }); // controller method
 
-    fastify.post('/', postBookOpts); // another controller method
+    // fastify.post('/'); // another controller method
 
-    done();
+    // done();
 }
 
 export { bookRoutes };

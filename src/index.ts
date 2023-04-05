@@ -1,8 +1,8 @@
-import fastify from 'fastify'
-import { bookRoutes } from "./routes/books";
+import fastify from 'fastify';
+import { bookRoutes } from './routes/BookRouter';
 
-const server = fastify({logger: true})
-server.register(bookRoutes)
+const server = fastify({logger: true});
+server.register(bookRoutes);
 
 server.listen({ port: 8080 }, (err, address) => {
     if (err) {
