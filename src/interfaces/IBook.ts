@@ -1,5 +1,5 @@
 interface IBook {
-  id: number;
+  id: string;
   title: string;
   author: string;
 }
