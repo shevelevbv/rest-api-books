@@ -3,14 +3,6 @@ import BookController from '../controllers/BookController';
 
 const bookController = new BookController();
 
-const BookProps = {
-  type: 'object',
-  properties: {
-    title: { type: 'string' },
-    author: { type: 'string' },
-  }
-};
-
 const getOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
@@ -25,6 +17,11 @@ const getOpts: RouteShorthandOptionsWithHandler = {
           },
         },
       },
+      404: {
+        properties: {
+          message: { type: 'string'},
+        },
+      },
     },
   },
   handler: bookController.getBooks,
@@ -32,9 +29,29 @@ const getOpts: RouteShorthandOptionsWithHandler = {
 
 const postOpts: RouteShorthandOptionsWithHandler = {
   schema: {
-    body: BookProps,
+    body: {
+      type: 'object',
+      required: ['title', 'author'],
+      properties: {
+        title: { type: 'string' },
+        author: { type: 'string' },
+      },
+    },
     response: {
-      200: BookProps,
+      201: {
+        type: 'object',
+        required: ['title', 'author'],
+        properties: {
+          id: {type: 'string'},
+          title: { type: 'string' },
+          author: { type: 'string' },
+        },
+      },
+      404: {
+        properties: {
+          message: { type: 'string'},
+        },
+      },
     },
   },
   handler: bookController.addBook,
