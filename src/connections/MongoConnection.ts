@@ -15,6 +15,7 @@ const AppDataSource = new DataSource({
     entities: [Book],
     useUnifiedTopology: true,
 });
-AppDataSource.initialize()
 
-export { AppDataSource };
+AppDataSource.initialize();
+
+export default AppDataSource;
