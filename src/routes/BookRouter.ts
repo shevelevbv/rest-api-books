@@ -1,8 +1,6 @@
 import { RouteShorthandOptionsWithHandler } from 'fastify';
 import BookController from '../controllers/BookController';
 
-const bookController = new BookController();
-
 const getOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
@@ -24,7 +22,7 @@ const getOpts: RouteShorthandOptionsWithHandler = {
       },
     },
   },
-  handler: bookController.getBooks,
+  handler: BookController.getBooks,
 };
 
 const postOpts: RouteShorthandOptionsWithHandler = {
@@ -54,7 +52,7 @@ const postOpts: RouteShorthandOptionsWithHandler = {
       },
     },
   },
-  handler: bookController.addBook,
+  handler: BookController.addBook,
 };
 
 async function bookRoutes (fastify: any, options: any, done: any) {
