@@ -39,15 +39,12 @@ const deleteOpts: RouteShorthandOptionsWithHandler = {
     },
     response: {
       204: {
-        type: 'object',
-        properties: {
-          message: {type: 'string'},
-        },
+        type: 'null',
       },
       404: {
         type: 'object',
         properties: {
-          message: {type: 'string'},
+          error: {type: 'string'},
         },
       },
     },

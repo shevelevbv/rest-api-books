@@ -30,9 +30,9 @@ export default class UserController {
     const userID: string = req.params.id;
     try {
       await UserService.deleteUser(userID);
-      res.code(204).send({message: 'User deleted'});
-    } catch {
-      res.code(404).send({message: "The user doesn't exist"});
+      res.code(204).send();
+    } catch (err) {
+      res.code(404).send({error: err.message});
     }
   }
 }
