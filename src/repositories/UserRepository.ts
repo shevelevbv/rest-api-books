@@ -9,9 +9,8 @@ export default class UserRepository {
   static deleteUser = async (id: string): Promise<DeleteWriteOpResultObject> => {
     const result = await AppDataSource.getMongoRepository(User).deleteOne({id});
     if (result.deletedCount === 0) {
-      throw new Error("The user doesn't exist");
+      throw new Error(`The user with the id '${id}' doesn't exist`);
     }
     return result;
   }
-
 }

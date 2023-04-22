@@ -16,6 +16,7 @@ const postOpts: RouteShorthandOptionsWithHandler = {
         properties: {
           id: {type: 'string'},
           username: {type: 'string'},
+          token: {type: 'string'},
         },
       },
       400: {

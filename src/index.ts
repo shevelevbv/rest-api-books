@@ -1,8 +1,12 @@
-import fastify from 'fastify';
+import fastify, { FastifyReply, FastifyRequest } from 'fastify';
+import fastifyJwt from '@fastify/jwt';
 import { bookRoutes } from './routes/BookRouter';
 import { userRoutes } from './routes/UserRouter';
 
-const server = fastify({logger: true});
+export const server = fastify({logger: true});
+server.register(fastifyJwt, {
+  secret: 'abc',
+})
 server.register(bookRoutes);
 server.register(userRoutes);
 
