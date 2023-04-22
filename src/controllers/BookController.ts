@@ -19,20 +19,27 @@ export default class BookController {
     }
   }
 
-  static addBook = async (req: FastifyRequest<{ Body: IBookPostBody }>, res: FastifyReply): Promise<void> => {
-      const { title, author } = req.body;
-      const book: IBook = {
-        id: v4(),
-        title,
-        author,
-      };
+  static addBook = async (req: FastifyRequest<{ Body: IBookPostBody }>, res: FastifyReply): Promise<Error | void> => {
+    try {
+      await req.jwtVerify();
+    } catch {
+      res.code(401);
+      return new Error('Unauthorized operation');
+    }
 
-      try {
-        const newBook =
-        await BookService.addBook(book);
-        res.code(201).send(book);
-      } catch (err) {
-        res.code(400).send({ error: "Bad Request" });
-      }
+    const { title, author } = req.body;
+    const book: IBook = {
+      id: v4(),
+      title,
+      author,
+    };
+
+    try {
+      const newBook =
+      await BookService.addBook(book);
+      res.code(201).send(book);
+    } catch (err) {
+      res.code(400).send({ error: "Bad Request" });
+    }
   };
 };
