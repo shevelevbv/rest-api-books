@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
 import Book from '../entities/Book';
 import { MONGODB_URI } from '../utils/config';
+import User from '../entities/User';
 
 const AppDataSource = new DataSource({
     url: MONGODB_URI,
@@ -12,7 +13,7 @@ const AppDataSource = new DataSource({
     // password: 'password',
     logging: true,
     synchronize: true,
-    entities: [Book],
+    entities: [Book, User],
     useUnifiedTopology: true,
 });
 

@@ -38,16 +38,17 @@ const postOpts: RouteShorthandOptionsWithHandler = {
     response: {
       201: {
         type: 'object',
-        required: ['title', 'author'],
+        required: ['id', 'title', 'author'],
         properties: {
           id: {type: 'string'},
           title: { type: 'string' },
           author: { type: 'string' },
         },
       },
-      404: {
+      400: {
+        type: 'object',
         properties: {
-          message: { type: 'string'},
+          error: { type: 'string'},
         },
       },
     },
