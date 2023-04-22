@@ -58,9 +58,9 @@ const postOpts: RouteShorthandOptionsWithHandler = {
 
 async function bookRoutes (fastify: any, options: any, done: any) {
 
-    fastify.get('/', getOpts);
+    fastify.get('/', {...getOpts, preValidation: fastify.authorization});
 
-    fastify.post('/', postOpts);
+    fastify.post('/', {...postOpts, preValidation: fastify.authorization});
 
     done();
 }

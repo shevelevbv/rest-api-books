@@ -19,14 +19,7 @@ export default class BookController {
     }
   }
 
-  static addBook = async (req: FastifyRequest<{ Body: IBookPostBody }>, res: FastifyReply): Promise<Error | void> => {
-    try {
-      await req.jwtVerify();
-    } catch {
-      res.code(401);
-      return new Error('Unauthorized operation');
-    }
-
+  static addBook = async (req: FastifyRequest<{ Body: IBookPostBody }>, res: FastifyReply): Promise<void> => {
     const { title, author } = req.body;
     const book: IBook = {
       id: v4(),
