@@ -28,7 +28,6 @@ export default class BookController {
     };
 
     try {
-      const newBook =
       await BookService.addBook(book);
       res.code(201).send(book);
     } catch (err) {

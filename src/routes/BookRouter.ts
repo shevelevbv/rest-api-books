@@ -15,6 +15,14 @@ const getOpts: RouteShorthandOptionsWithHandler = {
           },
         },
       },
+      401: {
+        type: 'object',
+        properties: {
+          statusCode: {type: 'number'},
+          error: {type: 'string'},
+          message: {type: 'string'},
+        },
+      },
       404: {
         properties: {
           message: { type: 'string'},
@@ -40,7 +48,7 @@ const postOpts: RouteShorthandOptionsWithHandler = {
         type: 'object',
         required: ['id', 'title', 'author'],
         properties: {
-          id: {type: 'string'},
+          id: { type: 'string' },
           title: { type: 'string' },
           author: { type: 'string' },
         },
@@ -49,6 +57,14 @@ const postOpts: RouteShorthandOptionsWithHandler = {
         type: 'object',
         properties: {
           error: { type: 'string'},
+        },
+      },
+      401: {
+        type: 'object',
+        properties: {
+          statusCode: { type: 'number' },
+          error: { type: 'string' },
+          message: { type: 'string' },
         },
       },
     },
