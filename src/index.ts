@@ -2,11 +2,12 @@ import fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import fastifyJwt from '@fastify/jwt';
 import { bookRoutes } from './routes/BookRouter';
 import { userRoutes } from './routes/UserRouter';
+import { ACCESS_KEY } from './utils/config';
 
 export const server = fastify({logger: true});
 server
   .register(fastifyJwt, {
-    secret: 'abc',
+    secret: ACCESS_KEY,
   })
   .register(bookRoutes)
   .register(userRoutes)

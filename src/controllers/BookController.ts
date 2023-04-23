@@ -14,7 +14,7 @@ export default class BookController {
     try {
       const books: Array<IBook> = await BookService.getBooks();
       res.code(200).send(books);
-    } catch (err) {
+    } catch {
       res.code(404).send({message: 'Not found'});
     }
   }
@@ -30,7 +30,7 @@ export default class BookController {
     try {
       await BookService.addBook(book);
       res.code(201).send(book);
-    } catch (err) {
+    } catch {
       res.code(400).send({ error: "Bad Request" });
     }
   };

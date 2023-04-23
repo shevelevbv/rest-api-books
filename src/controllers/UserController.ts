@@ -36,5 +36,5 @@ export default class UserController {
     } catch (err) {
       res.code(404).send({error: err.message});
     }
-  }
+  };
 }
