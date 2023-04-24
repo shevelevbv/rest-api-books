@@ -39,12 +39,13 @@ export default class UserController {
   };
 
   static checkUser = async (req: FastifyRequest): Promise<void> => {
-    const token: string | undefined = req.headers.authorization?.split(' ')[1];
+    const token_part = 1;
+    const token: string | undefined = req.headers.authorization?.split(' ')[token_part];
     if (!token || revokedTokens.has(token)) {
       throw new Error();
     }
     const decoded: IDecodedToken = await req.jwtVerify();
-    const user: User | null = await UserService.checkUser(decoded.id);
+    const user: User | null = await UserService.findUser(decoded.id);
     if (!user) {
       revokedTokens.set(token, true);
       throw new Error();

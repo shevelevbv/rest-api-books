@@ -6,7 +6,7 @@ import User from '../entities/User';
 export default class UserRepository {
   static addUser = async (user: IUser): Promise<InsertResult> => AppDataSource.getRepository(User).insert(user);
 
-  static checkUser = async (id: string): Promise<User | null> =>
+  static findUser = async (id: string): Promise<User | null> =>
     AppDataSource.getMongoRepository(User).findOne({where: {id}});
 
   static deleteUser = async (id: string): Promise<DeleteWriteOpResultObject> => {
