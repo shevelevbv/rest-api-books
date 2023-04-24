@@ -1,6 +1,13 @@
-import {BaseEntity, Entity} from "typeorm";
+import { BaseEntity, Column, Entity, ObjectIdColumn } from "typeorm";
 
-@Entity()
-export class Book extends BaseEntity {
+@Entity('book')
+export default class Book extends BaseEntity {
+  @ObjectIdColumn()
+  id: string;
 
+  @Column()
+  title: string;
+
+  @Column()
+  author: string;
 }
