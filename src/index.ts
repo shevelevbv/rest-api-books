@@ -3,6 +3,7 @@ import fastifyJwt from '@fastify/jwt';
 import { bookRoutes } from './routes/BookRouter';
 import { userRoutes } from './routes/UserRouter';
 import { ACCESS_KEY } from './utils/config';
+import UserController from './controllers/UserController';
 
 export const server = fastify({logger: true});
 server
@@ -13,9 +14,9 @@ server
   .register(userRoutes)
   .decorate('authorization', async (req: FastifyRequest, res: FastifyReply) => {
     try {
-      await req.jwtVerify();
+      await UserController.checkUser(req);
     } catch {
-      res.code(401).send(new Error('Unauthorized operation'));
+      res.code(401).send({error: 'Access token is missing or invalid'});
     }
 });
 

@@ -3,6 +3,8 @@ import IUser from '../interfaces/IUser';
 import { v4 } from 'uuid';
 import UserService from '../services/UserService';
 import { server } from '../index';
+import User from '../entities/User';
+import { revokedTokens } from '../utils/revokedTokens';
 
 interface IUserPostBody {
   username: string;
@@ -11,8 +13,16 @@ interface IUserPostBody {
 interface IUserDeleteParams {
   id: string;
 }
+
+interface IDecodedToken {
+  id: string;
+  username: string;
+  _id: string;
+  iat: number;
+}
+
 export default class UserController {
-  static addUser = async (req: FastifyRequest<{Body: IUserPostBody}>, res: FastifyReply) => {
+  static addUser = async (req: FastifyRequest<{Body: IUserPostBody}>, res: FastifyReply): Promise<void> => {
     const { username } = req.body;
     const newUser: IUser = {
       id: v4(),
@@ -28,7 +38,20 @@ export default class UserController {
     }
   };
 
-  static deleteUser = async (req: FastifyRequest<{Params: IUserDeleteParams}>, res: FastifyReply) => {
+  static checkUser = async (req: FastifyRequest): Promise<void> => {
+    const token: string | undefined = req.headers.authorization?.split(' ')[1];
+    if (!token || revokedTokens.has(token)) {
+      throw new Error();
+    }
+    const decoded: IDecodedToken = await req.jwtVerify();
+    const user: User | null = await UserService.checkUser(decoded.id);
+    if (!user) {
+      revokedTokens.set(token, true);
+      throw new Error();
+    }
+  }
+
+  static deleteUser = async (req: FastifyRequest<{Params: IUserDeleteParams}>, res: FastifyReply): Promise<void> => {
     const id: string = req.params.id;
     try {
       await UserService.deleteUser(id);

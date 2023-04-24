@@ -18,9 +18,7 @@ const getOpts: RouteShorthandOptionsWithHandler = {
       401: {
         type: 'object',
         properties: {
-          statusCode: {type: 'number'},
           error: {type: 'string'},
-          message: {type: 'string'},
         },
       },
       404: {
@@ -62,9 +60,7 @@ const postOpts: RouteShorthandOptionsWithHandler = {
       401: {
         type: 'object',
         properties: {
-          statusCode: { type: 'number' },
           error: { type: 'string' },
-          message: { type: 'string' },
         },
       },
     },
